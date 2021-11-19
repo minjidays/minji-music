@@ -33,6 +33,6 @@ for filename in os.listdir('./cogs'):
 TOKEN = os.environ.get("TOKEN")
 
 if not TOKEN:
-    TOKEN = 'TOKEN'
+    TOKEN = 'seu token aqui, caso são use os secrets do replit ou env'
 
 client.run(TOKEN)
