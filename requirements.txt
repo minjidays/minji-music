@@ -1,0 +1,4 @@
+tornado
+disnake
+yt-dlp
+PyNaCl
