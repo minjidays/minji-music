@@ -1,7 +1,7 @@
 # minji music
 ### bot de música em python programado usando libs do disnake e yt-dlp, com todos os comandos em slash. 
 
-&bull; comandos básicos em embed, totalmente editáveis
+&bull; comandos básicos em embed, totalmente editáveis.
 
 &bull; o nome, cores e imagens nos embeds são totalmente opcionais e vocês podem editar de acordo com suas preferências.
 
