@@ -1,0 +1,14 @@
+{
+    "MUSIC_NAME": "музыка",
+    "REPEAT_NAME": "повтор",
+    "STOP_NAME": "стоп",
+    "SHUFFLE_NAME": "перемешать",
+    "PLAY_NAME": "плей",
+    "QUEUE_NAME": "очередь",
+    "SKIP_NAME": "пропустить",
+    "QUERY_NAME": "запрос",
+    "PLATFORM_NAME": "платформа",
+    "MODE_NAME": "режим",
+    "BACK_NAME": "сначала",
+    "PAUSE_NAME": "пауза"
+}
