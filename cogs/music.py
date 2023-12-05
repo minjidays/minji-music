@@ -296,13 +296,9 @@ class MusicPlayer:
             self.no_message = False
         else:
             try:
-                if info.get('type', 'youtube') == 'yandex':
-                    emoji = self.bot.get_emoji(1180872256465936394)
-                else:
-                    emoji = self.bot.get_emoji(1180872765264379975)
                 embed = disnake.Embed(
                     title=f"Сейчас играет:",
-                    description=f"[{emoji} **{info['title']}**]({info['webpage_url']})\n\n**Длинна:** `{datetime.timedelta(seconds=info['duration'])}`",
+                    description=f"**{info['title']}**]({info['webpage_url']})\n\n**Длинна:** `{datetime.timedelta(seconds=info['duration'])}`",
                     color=disnake.Color.purple(),
                 )
 
@@ -379,8 +375,6 @@ class music(commands.Cog):
         result = parse_yandex_music_url(item)
         type = result.get('type')
         limited = False
-        ym = bot.get_emoji(1180872256465936394)
-        wait = bot.get_emoji(1177997423105282110)
         if not type:
             type = 'search'
             search = await yandexClient.search(item, type_='track')
@@ -411,7 +405,7 @@ class music(commands.Cog):
             tracks_low = playlist.tracks
             tracks = []
             count = 0
-            embed = disnake.Embed(description=f'{ym} Сканирую плейлист {wait}', color=disnake.Color.purple())
+            embed = disnake.Embed(description=f'Сканирую плейлист', color=disnake.Color.purple())
             embed.set_footer(text='За раз можно просканировать не более 500 треков')
             await inter.edit_original_message(embed=embed)
             if tracks_low:
@@ -423,7 +417,7 @@ class music(commands.Cog):
                         limited = True
                         break
                     if count % 10 == 0:
-                        embed = disnake.Embed(description=f'{ym} Сканирую плейлист **({count}/{playlist.track_count})** {wait}', color=disnake.Color.purple())
+                        embed = disnake.Embed(description=f'Сканирую плейлист **({count}/{playlist.track_count})**', color=disnake.Color.purple())
                         embed.set_footer(text='За раз можно просканировать не более 500 треков')
                         await inter.edit_original_message(embed=embed)
         if type != 'playlist':
@@ -436,7 +430,7 @@ class music(commands.Cog):
             lim = ' '
             if limited:
                 lim = ' (Достигнут лимит) ' 
-            description = f'{ym} {f"Обнаружено **{total}{lim}**треков" if total != 1 else "Трек найден"}!'
+            description = f'{f"Обнаружено **{total}{lim}**треков" if total != 1 else "Трек найден"}!'
             embed = disnake.Embed(description=description, color=disnake.Color.purple())
             await inter.edit_original_message(embed=embed)
             for track in tracks:
@@ -551,12 +545,10 @@ class music(commands.Cog):
             embed = disnake.Embed(description=f'Подготовка плеера {wait}', color=disnake.Color.purple())
             await inter.response.send_message(embed=embed)
             if search == 'YouTube':
-                emoji = self.bot.get_emoji(1180872765264379975)
-                embed = disnake.Embed(description=f'{emoji} Получении аудиодорожек с видео {wait}', color=disnake.Color.purple())
+                embed = disnake.Embed(description=f'Получении аудиодорожек с видео {wait}', color=disnake.Color.purple())
                 await inter.edit_original_message(embed=embed)
                 songs = await self.search_yt(query)
             elif search == 'Yandex Music':
-                emoji = self.bot.get_emoji(1180872256465936394)
                 songs = await self.search_ym(query, inter, self.bot)
         except Exception as e:
             traceback.print_exc()
@@ -570,16 +562,16 @@ class music(commands.Cog):
         if not songs:
             embedvc = disnake.Embed(
                 colour=disnake.Color.red(),
-                description=f'⚠️ Нет результатов для вашего запроса: {emoji} **{query}**'
+                description=f'⚠️ Нет результатов для вашего запроса: **{query}**'
             )
             await inter.edit_original_message(embed=embedvc)
             return
 
 
         if (size := len(songs)) > 1:
-            txt = f" {emoji} **{size}** треков!"
+            txt = f" **{size}** треков!"
         else:
-            txt = f": **[{emoji} {songs[0]['title']}]({songs[0]['webpage_url']})**"
+            txt = f": **[ {songs[0]['title']}]({songs[0]['webpage_url']})**"
 
         for song in songs:
             song['requester'] = inter.author
@@ -627,11 +619,7 @@ class music(commands.Cog):
             return text
 
         for n, i in enumerate(player.queue[:20]):
-            if i['type'] == 'yandex':
-                emoji = self.bot.get_emoji(1180872256465936394)
-            elif i['type'] == 'youtube':
-                emoji = self.bot.get_emoji(1180872765264379975)
-            retval += f'**{n + 1} | {emoji} | `{datetime.timedelta(seconds=i["duration"])}` - ** [{limit(i["title"])}]({i["url"]}) | {i["requester"].mention}\n'
+            retval += f'**{n + 1} | `{datetime.timedelta(seconds=i["duration"])}` - ** [{limit(i["title"])}]({i["url"]}) | {i["requester"].mention}\n'
 
         if (qsize := len(player.queue)) > 20:
             retval += f"\nИ ещё **{qsize - 20}**..."
@@ -923,11 +911,7 @@ class music(commands.Cog):
                 return text
 
             for n, i in enumerate(player.queue[:20]):
-                if i['type'] == 'yandex':
-                    emoji = self.bot.get_emoji(1180872256465936394)
-                elif i['type'] == 'youtube':
-                    emoji = self.bot.get_emoji(1180872765264379975)
-                retval += f'**{n + 1} | {emoji} | `{datetime.timedelta(seconds=i["duration"])}` - ** [{limit(i["title"])}]({i["url"]}) | {i["requester"].mention}\n'
+                retval += f'**{n + 1} | `{datetime.timedelta(seconds=i["duration"])}` - ** [{limit(i["title"])}]({i["url"]}) | {i["requester"].mention}\n'
 
             if (qsize := len(player.queue)) > 20:
                 retval += f"\nИ ещё **{qsize - 20}**..."
