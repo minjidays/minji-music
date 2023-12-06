@@ -298,7 +298,7 @@ class MusicPlayer:
             try:
                 embed = disnake.Embed(
                     title=f"Сейчас играет:",
-                    description=f"**{info['title']}**]({info['webpage_url']})\n\n**Длинна:** `{datetime.timedelta(seconds=info['duration'])}`",
+                    description=f"[**{info['title']}**]({info['webpage_url']})\n\n**Длинна:** `{datetime.timedelta(seconds=info['duration'])}`",
                     color=disnake.Color.purple(),
                 )
 
@@ -413,7 +413,7 @@ class music(commands.Cog):
                     count += 1
                     track = await track.fetchTrackAsync()
                     tracks.append(track)
-                    if count >= 50:
+                    if count >= 500:
                         limited = True
                         break
                     if count % 10 == 0:
