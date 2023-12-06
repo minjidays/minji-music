@@ -488,6 +488,7 @@ class music(commands.Cog):
 
             data.append(
                 {
+                    'cached': True, # Не требует скачивания
                     'type': 'youtube',
                     'url': url,
                     'title': fix_characters(t['title']),
