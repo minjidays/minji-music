@@ -380,7 +380,8 @@ class music(commands.Cog):
             search = await yandexClient.search(item, type_='track')
             tracks_search = search.tracks 
             if tracks_search:
-                tracks = list(tracks_search.results[0])
+                track = tracks_search.results[0]
+                tracks = [track]
             else:
                 tracks = []
         elif type == 'album':
