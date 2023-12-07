@@ -311,7 +311,7 @@ class MusicPlayer:
                     embed.description += '\n**Повтор:** `Выключен`'
                 if thumb:
                     embed.set_thumbnail(url=thumb)
-                embed.set_footer(text=f'В очереди {len(self.queue)} треков...')
+                embed.set_footer(text=f'{"В очереди {len(self.queue)} треков..." if self.queue else "Играетп последний трек"}')
                 components = [
                     disnake.ui.Button(style=disnake.ButtonStyle.gray, custom_id='music_repeat_button', emoji='🔁'),
                     disnake.ui.Button(style=disnake.ButtonStyle.gray, custom_id='music_back_button', emoji='⬅️'),
@@ -512,7 +512,6 @@ class music(commands.Cog):
             self,
             inter: disnake.ApplicationCommandInteraction,
             query: str = commands.Param(name=Localised('query', key="QUERY_NAME"), description="Название или ссылка"),
-            search: str = commands.Param(name=Localised('platform', key="PLATFORM_NAME"), description="Где искать?", choices=['Yandex Music', 'YouTube'])
     ):
 
         if not inter.author.voice:
@@ -546,12 +545,9 @@ class music(commands.Cog):
             wait = self.bot.get_emoji(1177997423105282110)
             embed = disnake.Embed(description=f'Подготовка плеера {wait}', color=disnake.Color.purple())
             await inter.response.send_message(embed=embed)
-            if search == 'YouTube':
-                embed = disnake.Embed(description=f'Получении аудиодорожек с видео {wait}', color=disnake.Color.purple())
-                await inter.edit_original_message(embed=embed)
-                songs = await self.search_yt(query)
-            elif search == 'Yandex Music':
-                songs = await self.search_ym(query, inter, self.bot)
+            songs = await self.search_ym(query, inter, self.bot) # Ищем по названию или берём из ссылки трек в яндекс музыке
+            if not songs: # Если в яндексе ничего нету
+                songs = await self.search_yt(query) # Ищем по названию или берём из ссылки в ютубе
         except Exception as e:
             traceback.print_exc()
             embedvc = disnake.Embed(
