@@ -1,15 +1,9 @@
-# minji music
-### bot de música em python programado usando libs do disnake e yt-dlp, com todos os comandos em slash. 
+# Код взятый за основу https://github.com/minjidays/minji-music
+### Музыкальный дискорд бот использующий библиотеки disnake и ffmpeg. Поддерживает Ютуб и Яндекс Музыку.
 
-&bull; comandos básicos em embed, totalmente editáveis.
+Внешний вид плеера:
 
-&bull; o nome, cores e imagens nos embeds são totalmente opcionais e vocês podem editar de acordo com suas preferências.
+![image](https://github.com/Soto4ka37/music-bot/assets/62742200/e4138a97-06f1-4963-9b88-7f3ba0f2ed63)
 
-
-
-
-# preview
-
-&bull; slash commands: 
-
-<img src="https://64.media.tumblr.com/28accad015ce47d41da6517fd28a18de/b9cf111da0d625a4-5e/s400x600/84f8b12fe70cfa9bc9db03f1aaad54305e04aec5.png">
+Для работы яндекс музыки необходим токен аккаунта с подпиской "Плюс".
+> [Как получить токен яндекс музыки?](https://yandex-music.readthedocs.io/en/main/token.html)

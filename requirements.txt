@@ -1,4 +1,7 @@
-tornado
 disnake
 yt-dlp
 PyNaCl
+pydub
+yandex_music
+aiohttp
+python-dotenv
